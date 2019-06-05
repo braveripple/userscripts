@@ -18,6 +18,6 @@
     var iziToast = window.iziToast;
     iziToast.show({
         title: 'title',
-        message: 'This is iziToast Sample'
+        message: 'This is iziToast sample.'
     });
 })();
