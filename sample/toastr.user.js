@@ -34,5 +34,8 @@
 	  "showMethod": "fadeIn",
 	  "hideMethod": "fadeOut"
 	}
-    toastr["info"]("This is toastr sample", "title");
+    toastr.info("This is toastr info toast.", "info");
+    toastr.success("This is toastr success toast.", "success");
+    toastr.warning("This is toastr warning toast.", "warning");
+    toastr.error("This is toastr error toast.", "error");
 })();
