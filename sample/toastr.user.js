@@ -18,7 +18,7 @@
 
     var toastr = window.toastr;
     
-    toastr.info("This is toastr info toast. \n no options", "info");
+    toastr.info("This is toastr info toast. <br> no options", "info");
     
     toastr.options = {
 	  "closeButton": true,
