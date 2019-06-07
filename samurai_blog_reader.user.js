@@ -3,7 +3,7 @@
 // @namespace    http://tampermonkey.net/
 // @version      0.1
 // @description  侍エンジニア塾ブログの記事を見やすく表示
-// @author       You
+// @author       ripple
 // @match        https://www.sejuku.net/blog/*
 // @grant        none
 // @run-at       document-end
