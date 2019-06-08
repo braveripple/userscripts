@@ -3,7 +3,7 @@
 // @namespace    http://tampermonkey.net/
 // @version      0.1
 // @description  テーブルタグにExcelファイルをエクスポートするボタンを追加する
-// @author       ripple
+// @author       braveripple
 // @match        http://www.htmq.com/*
 // @require      https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.14.3/xlsx.full.min.js
 // ==/UserScript==
