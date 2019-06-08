@@ -29,20 +29,22 @@
         document.body.removeChild(copyFrom);
         return retVal;
     }
+    function makeQuote() {
+        let title = window.document.title;
+	    // Scrapbox向けの加工。角括弧を解釈されない文字に置き換える。
+	    title = title.replace("[","⟦").replace("]","⟧");
+        const url = window.location.href;
 
-    let title = window.document.title;
-	// Scrapbox向けの加工。角括弧を解釈されない文字に置き換える。
-	title = title.replace("[","⟦").replace("]","⟧");
-    const url = window.location.href;
+        const selectedText = window.getSelection().toString();
+        const quote = selectedText === "" ? "" : selectedText.replace(/^/gm,">");
 
-    const selectedText = window.getSelection().toString();
-    const quote = selectedText === "" ? "" : selectedText.replace(/^/gm,">");
-
-    const output =
+        const output =
 `copy from [${title} ${url}]
-${quote}
-`;
-    copyToClipboard(output);
+${quote}`;
+        return output;
+    }
+
+    copyToClipboard(makeQuote());
 
     const toastr = window.toastr;
     toastr.options = {
