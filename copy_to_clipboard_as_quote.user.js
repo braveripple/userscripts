@@ -3,7 +3,7 @@
 // @namespace       http://tampermonkey.net/
 // @description     選択範囲を引用文としてクリップボードにコピー
 // @version         0.1
-// @author          You
+// @author          braveripple
 // @include         *
 // @resource        toastrCSS https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css
 // @require         https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js
@@ -16,9 +16,35 @@
 (function() {
     'use strict';
 
-    var css = GM_getResourceText("toastrCSS");
-    GM_addStyle(css);
-    var toastr = window.toastr;
+    GM_addStyle(GM_getResourceText("toastrCSS"));
+
+    function copyToClipboard(value) {
+        const copyFrom = document.createElement("textarea");
+        copyFrom.textContent = value;
+
+        document.body.appendChild(copyFrom);
+        copyFrom.select();
+
+        const retVal = document.execCommand('copy');
+        document.body.removeChild(copyFrom);
+        return retVal;
+    }
+
+    const title = window.document.title;
+	// Scrapbox向けの加工。角括弧を解釈されない文字に置き換える。
+	title = title.replace("[","⟦").replace("]","⟧");
+    const url = window.location.href;
+
+    const selectedText = window.getSelection().toString();
+    const quote = selectedText === "" ? "" : selectedText.replace(/^/gm,">");
+
+    const output =
+`copy from [${title} ${url}]
+${quote}
+`;
+    copyToClipboard(output);
+
+    const toastr = window.toastr;
     toastr.options = {
         "closeButton": true,
         "debug": false,
@@ -36,34 +62,6 @@
         "showMethod": "fadeIn",
         "hideMethod": "fadeOut"
 	}
-
-    function copyToClipboard(value) {
-        var copyFrom = document.createElement("textarea");
-        copyFrom.textContent = value;
-
-        var body = document.querySelector("body");
-        body.appendChild(copyFrom);
-        copyFrom.select();
-
-        var retVal = document.execCommand('copy');
-        body.removeChild(copyFrom);
-        return retVal;
-    }
-
-    let title = window.document.title;
-	// Scrapbox向けの加工。角括弧を解釈されない文字に置き換える。
-	title = title.replace("[","⟦").replace("]","⟧");
-    let url = window.location.href;
-
-    let selectedText = window.getSelection().toString();
-    let quote = selectedText === "" ? "" : selectedText.replace(/^/gm,">");
-
-    const output =
-`copy from [${title} ${url}]
-${quote}
-`;
-    copyToClipboard(output);
-
     toastr.success("コピーしました。");
 
 })();
