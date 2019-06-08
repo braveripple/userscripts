@@ -30,7 +30,7 @@
         return retVal;
     }
 
-    const title = window.document.title;
+    let title = window.document.title;
 	// Scrapbox向けの加工。角括弧を解釈されない文字に置き換える。
 	title = title.replace("[","⟦").replace("]","⟧");
     const url = window.location.href;
