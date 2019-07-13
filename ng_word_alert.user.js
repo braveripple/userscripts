@@ -2,7 +2,7 @@
 // @name         NG Word Alert
 // @namespace    http://tampermonkey.net/
 // @version      0.1
-// @description
+// @description  ページにNGワードが含まれていたら警告を出す
 // @author       braveripple
 // @match        *://*/*
 // @resource     toastrCSS https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css
