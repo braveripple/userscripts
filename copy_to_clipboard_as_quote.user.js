@@ -2,7 +2,7 @@
 // @name            選択範囲を引用する
 // @namespace       http://tampermonkey.net/
 // @description     選択範囲を引用文としてクリップボードにコピー
-// @version         0.1
+// @version         0.2
 // @author          braveripple
 // @include         *
 // @resource        toastrCSS https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css
@@ -31,10 +31,14 @@
     }
     function makeQuote() {
         let title = window.document.title;
-	    // Scrapbox向けの加工。角括弧を解釈されない文字に置き換える。
-	    title = title.replace("[","⟦").replace("]","⟧");
-        const url = window.location.href;
+	// Scrapbox向けの加工。角括弧を解釈されない文字に置き換える。
+	title = title.replace("[","⟦").replace("]","⟧");
+        let url = window.location.href;
 
+        // 引用ページがGoogle検索ならqパラメータ以降のパラメータをはしょる。
+        if (url.match(/www.google.com\/search/)) {
+            url = url.substring(0, url.indexOf("&"))
+        }
         const selectedText = window.getSelection().toString();
         const quote = selectedText === "" ? "" : selectedText.replace(/^/gm,">");
 
